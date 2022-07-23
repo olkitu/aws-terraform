@@ -34,15 +34,15 @@
 | <a name="input_capacity_type"></a> [capacity\_type](#input\_capacity\_type) | EKS Instance Capacity Type, SPOT or ON\_DEMAND | `string` | `"ON_DEMAND"` | no |
 | <a name="input_cluster_version"></a> [cluster\_version](#input\_cluster\_version) | EKS Cluster version | `number` | `1.22` | no |
 | <a name="input_disk_size"></a> [disk\_size](#input\_disk\_size) | Disk size of Managed EKS Instances | `number` | `20` | no |
-| <a name="input_instance_types"></a> [instance\_types](#input\_instance\_types) | List of amd64 supported instance types | `list(any)` | <pre>[<br>  "t3.small",<br>  "t3.medium"<br>]</pre> | no |
+| <a name="input_instance_types"></a> [instance\_types](#input\_instance\_types) | List of amd64 supported instance types | `list(string)` | <pre>[<br>  "t3.small",<br>  "t3.medium"<br>]</pre> | no |
 | <a name="input_max_size"></a> [max\_size](#input\_max\_size) | Max amount of nodes in EKS Cluster | `number` | `5` | no |
 | <a name="input_min_size"></a> [min\_size](#input\_min\_size) | Minium amount of nodes in EKS Cluster | `number` | `1` | no |
-| <a name="input_name"></a> [name](#input\_name) | n/a | `string` | `"aws-eks"` | no |
+| <a name="input_name"></a> [name](#input\_name) | n/a | `string` | `"aws-demo"` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | `"us-east-1"` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | n/a | `map` | <pre>{<br>  "ManagedBy": "Terraform"<br>}</pre> | no |
 | <a name="input_vpc_cidr_block"></a> [vpc\_cidr\_block](#input\_vpc\_cidr\_block) | VPC CIDR Block | `string` | `"10.0.0.0/8"` | no |
 | <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | VPC ID | `string` | n/a | yes |
-| <a name="input_vpc_subnet_ids"></a> [vpc\_subnet\_ids](#input\_vpc\_subnet\_ids) | VPC Subnets for EKS use | `list(any)` | n/a | yes |
+| <a name="input_vpc_subnet_ids"></a> [vpc\_subnet\_ids](#input\_vpc\_subnet\_ids) | VPC Subnets for EKS use | `list(string)` | n/a | yes |
 
 ## Outputs
 

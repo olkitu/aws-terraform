@@ -8,7 +8,7 @@ locals {
 
 variable "name" {
   type    = string
-  default = "aws-vpc"
+  default = "aws-demo"
 }
 
 variable "region" {

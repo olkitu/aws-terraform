@@ -7,7 +7,7 @@ locals {
 
 variable "name" {
   type    = string
-  default = "aws-bastion"
+  default = "aws-demo"
 }
 
 variable "region" {

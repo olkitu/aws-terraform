@@ -10,7 +10,7 @@ locals {
 
 variable "name" {
   type    = string
-  default = "aws-eks"
+  default = "aws-demo"
 }
 
 variable "region" {
