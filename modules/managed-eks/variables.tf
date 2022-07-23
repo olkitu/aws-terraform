@@ -33,7 +33,7 @@ variable "vpc_cidr_block" {
 }
 
 variable "vpc_subnet_ids" {
-  type        = list(any)
+  type        = list(string)
   description = "VPC Subnets for EKS use"
 }
 
@@ -45,7 +45,7 @@ variable "cluster_version" {
 }
 
 variable "instance_types" {
-  type        = list(any)
+  type        = list(string)
   default     = ["t3.small", "t3.medium"]
   description = "List of amd64 supported instance types"
 }
