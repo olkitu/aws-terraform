@@ -3,7 +3,7 @@
 
 This requires first deploy AWS Load Balancer Controller Add-on to EKS.
 
-```
+```hcl
 module "eks_loadbalancer" {
   source = "github.com/olkitu/aws-terraform.git/modules/eks-loadbalancer"
 

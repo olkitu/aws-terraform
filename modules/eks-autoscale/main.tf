@@ -1,3 +1,22 @@
+/**
+* # EKS Autoscale
+* 
+* Enable EKS up and down autoscaling to meet changing demands.
+* 
+* ```hcl
+* # module "eks_autoscale" {
+*   source = "../../modules/eks-autoscale"
+*
+*   name = "aws-demo"
+*
+*   eks_cluster_id                         = module.eks.cluster_id
+*   eks_cluster_endpoint                   = module.eks.cluster_endpoint
+*   eks_cluster_certificate_authority_data = module.eks.cluster_certificate_authority_data
+*   eks_oidc_provider_arn                  = module.eks.oidc_provider_arn
+* }
+* ```
+*/
+
 data "aws_region" "current" {}
 
 provider "kubernetes" {

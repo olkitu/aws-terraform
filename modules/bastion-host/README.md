@@ -1,4 +1,6 @@
 <!-- BEGIN_TF_DOCS -->
+# Bastion Host
+
 ## Requirements
 
 | Name | Version |
