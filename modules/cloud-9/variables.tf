@@ -20,5 +20,5 @@ variable "automatic_stop_time_minutes" {
 }
 
 variable "owner_arn" {
-    description = "Owner Arn"
+  description = "Owner Arn"
 }

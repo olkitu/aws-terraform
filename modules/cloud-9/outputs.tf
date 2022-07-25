@@ -1,16 +1,16 @@
 output "id" {
   description = "Environment Id"
-  value = aws_cloud9_environment_ec2.cloud9_environment.id
+  value       = aws_cloud9_environment_ec2.cloud9_environment.id
 }
 
 output "arn" {
   description = "Environment Arn"
-  value = aws_cloud9_environment_ec2.cloud9_environment.arn
+  value       = aws_cloud9_environment_ec2.cloud9_environment.arn
 }
 
 output "type" {
   description = "Environment Type"
-  value = aws_cloud9_environment_ec2.cloud9_environment.type
+  value       = aws_cloud9_environment_ec2.cloud9_environment.type
 }
 
 output "url" {
