@@ -89,6 +89,17 @@ variable "tags" {
   }
 }
 
+# EKS Variables
+variable "eks_cluster_id" {
+  description = "EKS Cluster ID"
+}
+variable "eks_cluster_endpoint" {
+  description = "EKS Cluster Endpoint"
+}
+variable "eks_cluster_certificate_authority_data" {
+  description = "EKS Cluster Certificate Data"
+}
+
 variable "namespace" {
   description = "Kubernetes Namespace name"
   default = "gitlab-runner"

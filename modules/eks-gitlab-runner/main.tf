@@ -10,6 +10,11 @@
 *   
 *   runnerRegisterationToken = "token"
 * 
+*   eks_cluster_id = module.eks.cluster_id
+*   eks_cluster_endpoint = module.eks.cluster_endpoint
+*   eks_cluster_certificate_authority_data = module.eks.cluster_certificate_authority_data
+* 
+*   s3_bucket_name = "gitlab-runner-cache"
 *   aws_access_key = module.iam_user.iam_access_key_id	
 *   aws_access_key_secret = module.iam_user.iam_access_key_secret
 *   

@@ -10,6 +10,11 @@ module "gitlab_runner" {
 
   runnerRegisterationToken = "token"
 
+  eks_cluster_id = module.eks.cluster_id
+  eks_cluster_endpoint = module.eks.cluster_endpoint
+  eks_cluster_certificate_authority_data = module.eks.cluster_certificate_authority_data
+
+  s3_bucket_name = "gitlab-runner-cache"
   aws_access_key = module.iam_user.iam_access_key_id	
   aws_access_key_secret = module.iam_user.iam_access_key_secret
 
@@ -51,6 +56,9 @@ module "gitlab_runner" {
 | <a name="input_aws_access_key_secret"></a> [aws\_access\_key\_secret](#input\_aws\_access\_key\_secret) | AWS Access Key Secret | `string` | n/a | yes |
 | <a name="input_concurrent"></a> [concurrent](#input\_concurrent) | Gitlab Runner concurrent limit | `number` | `10` | no |
 | <a name="input_cpu_arch"></a> [cpu\_arch](#input\_cpu\_arch) | CPU Architechture, amd64/arm64 | `string` | `"amd64"` | no |
+| <a name="input_eks_cluster_certificate_authority_data"></a> [eks\_cluster\_certificate\_authority\_data](#input\_eks\_cluster\_certificate\_authority\_data) | EKS Cluster Certificate Data | `any` | n/a | yes |
+| <a name="input_eks_cluster_endpoint"></a> [eks\_cluster\_endpoint](#input\_eks\_cluster\_endpoint) | EKS Cluster Endpoint | `any` | n/a | yes |
+| <a name="input_eks_cluster_id"></a> [eks\_cluster\_id](#input\_eks\_cluster\_id) | EKS Cluster ID | `any` | n/a | yes |
 | <a name="input_gitlabUrl"></a> [gitlabUrl](#input\_gitlabUrl) | Gitlab URL | `string` | `"https://gitlab.com"` | no |
 | <a name="input_name"></a> [name](#input\_name) | n/a | `string` | `"aws-demo"` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | Kubernetes Namespace name | `string` | `"gitlab-runner"` | no |
