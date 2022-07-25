@@ -1,7 +1,7 @@
 <!-- BEGIN_TF_DOCS -->
-# Gitlab Runner in EKR
+# Gitlab Runner in EKS
 
-Deploy Gitlab Runner to AWS EKR Cluster.
+Deploy Gitlab Runner to AWS EKS Cluster.
 
 Example configuration:
 ```
