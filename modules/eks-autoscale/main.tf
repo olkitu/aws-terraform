@@ -1,3 +1,5 @@
+data "aws_region" "current" {}
+
 provider "kubernetes" {
   host                   = var.eks_cluster_endpoint
   cluster_ca_certificate = base64decode(var.eks_cluster_certificate_authority_data)
@@ -13,7 +15,7 @@ module "iam_autoscale_eks_role" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
   version = "~>4.21.0"
 
-  role_name        = "${local.name}-iam_autoscale_eks_role"
+  role_name        = "${local.name}-${data.aws_region.current}-iam_autoscale_eks_role"
   role_description = "Autoscale Policy for EKS"
 
   attach_cluster_autoscaler_policy = true
@@ -194,7 +196,7 @@ resource "kubernetes_deployment" "cluster_autoscaler" {
         container {
           name    = "cluster-autoscaler"
           image   = "k8s.gcr.io/autoscaling/cluster-autoscaler:v1.22.2"
-          command = ["./cluster-autoscaler", "--v=4", "--stderrthreshold=info", "--cloud-provider=aws", "--skip-nodes-with-local-storage=false", "--expander=least-waste", "--node-group-auto-discovery=asg:tag=k8s.io/cluster-autoscaler/enabled,k8s.io/cluster-autoscaler/${local.name}"]
+          command = ["./cluster-autoscaler", "--v=4", "--stderrthreshold=info", "--cloud-provider=aws", "--skip-nodes-with-local-storage=false", "--expander=least-waste", "--node-group-auto-discovery=asg:tag=k8s.io/cluster-autoscaler/enabled,k8s.io/cluster-autoscaler/${var.eks_cluster_id}"]
           resources {
             limits   = { cpu = "100m", memory = "600Mi" }
             requests = { cpu = "100m", memory = "600Mi" }
