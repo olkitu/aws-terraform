@@ -67,6 +67,4 @@ resource "helm_release" "gitlab-runner" {
   values = [
     local_file.values_yaml.content
   ]
-
-  depends_on = [kubernetes_secret.gitlab_runner]
 }

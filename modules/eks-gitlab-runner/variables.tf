@@ -108,6 +108,11 @@ variable "eks_namespace" {
 
 # Gitlab Runners configuration
 
+variable "runner_version" {
+  description = "Gitlab Runner Helm Chart version"
+  default = "0.41.0"
+}
+
 variable "gitlab_url" {
   description = "Gitlab URL"
   default     = "https://gitlab.com"
