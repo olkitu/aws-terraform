@@ -1,5 +1,4 @@
 locals {
-  name   = var.name
   region = var.region
   tags   = var.tags
 
@@ -73,11 +72,6 @@ locals {
   }
 }
 
-
-variable "name" {
-  type    = string
-  default = "aws-demo"
-}
 
 variable "region" {
   description = "AWS Regon"
