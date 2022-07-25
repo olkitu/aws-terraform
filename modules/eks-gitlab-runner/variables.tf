@@ -154,8 +154,8 @@ variable "s3_bucket_name" {
 
 variable "s3_bucket_region" {
   description = "S3 Bucket Region"
-  type = string
-  default = "us-east-1"
+  type        = string
+  default     = "us-east-1"
 }
 
 # IAM User Access Keys for S3 shared cache access
