@@ -1,4 +1,11 @@
 <!-- BEGIN_TF_DOCS -->
+# Simple VPC
+
+Deploy simple VPC to AWS with:
+* 2x public and private Subnets
+* Single NAT Gateway
+* IPv6 Egress gateway
+
 ## Requirements
 
 | Name | Version |
