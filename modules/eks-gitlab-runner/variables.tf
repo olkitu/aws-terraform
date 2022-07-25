@@ -81,7 +81,7 @@ variable "name" {
 
 variable "region" {
   description = "AWS Regon"
-  default = "us-east-1"
+  default     = "us-east-1"
 }
 
 variable "tags" {
@@ -103,14 +103,14 @@ variable "eks_cluster_certificate_authority_data" {
 
 variable "eks_namespace" {
   description = "Kubernetes Namespace name"
-  default = "gitlab-runner"
+  default     = "gitlab-runner"
 }
 
 # Gitlab Runners configuration
 
 variable "runner_version" {
   description = "Gitlab Runner Helm Chart version"
-  default = "0.41.0"
+  default     = "0.41.0"
 }
 
 variable "gitlab_url" {
@@ -131,7 +131,7 @@ variable "runner_concurrent" {
 
 variable "runner_sentry_dsn" {
   description = "Sentry DSN"
-  type = string
+  type        = string
   default     = ""
 }
 

@@ -15,7 +15,8 @@ module "ec2_bastion" {
 }
 
 module "ec2_bastion_sg" {
-  source = "terraform-aws-modules/security-group/aws//modules/ssh"
+  source  = "terraform-aws-modules/security-group/aws//modules/ssh"
+  version = "4.9.0"
 
   name        = "${local.name}-bastion-sg"
   description = "Allow SSH inbound"

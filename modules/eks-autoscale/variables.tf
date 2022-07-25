@@ -13,7 +13,7 @@ variable "name" {
 
 variable "region" {
   description = "AWS Region"
-  default = "us-east-1"
+  default     = "us-east-1"
 }
 
 variable "tags" {
