@@ -126,7 +126,8 @@ variable "runner_concurrent" {
 
 variable "runner_sentry_dsn" {
   description = "Sentry DSN"
-  default     = false
+  type = string
+  default     = ""
 }
 
 variable "runner_tags" {

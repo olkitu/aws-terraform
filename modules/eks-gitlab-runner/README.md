@@ -64,7 +64,7 @@ module "gitlab_runner" {
 | <a name="input_region"></a> [region](#input\_region) | AWS Regon | `string` | `"us-east-1"` | no |
 | <a name="input_runner_concurrent"></a> [runner\_concurrent](#input\_runner\_concurrent) | Gitlab Runner concurrent limit | `number` | `10` | no |
 | <a name="input_runner_registeration_token"></a> [runner\_registeration\_token](#input\_runner\_registeration\_token) | Gitlab Registeration token | `string` | n/a | yes |
-| <a name="input_runner_sentry_dsn"></a> [runner\_sentry\_dsn](#input\_runner\_sentry\_dsn) | Sentry DSN | `bool` | `false` | no |
+| <a name="input_runner_sentry_dsn"></a> [runner\_sentry\_dsn](#input\_runner\_sentry\_dsn) | Sentry DSN | `string` | `""` | no |
 | <a name="input_runner_tags"></a> [runner\_tags](#input\_runner\_tags) | Runner Tags, list in string | `string` | `"kubernetes, cluster"` | no |
 | <a name="input_s3_bucket_name"></a> [s3\_bucket\_name](#input\_s3\_bucket\_name) | S3 Bucket Name | `string` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | n/a | `map` | <pre>{<br>  "ManagedBy": "Terraform"<br>}</pre> | no |
