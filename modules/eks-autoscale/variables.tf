@@ -12,6 +12,7 @@ variable "name" {
 }
 
 variable "region" {
+  description = "AWS Region"
   default = "us-east-1"
 }
 
@@ -21,8 +22,15 @@ variable "tags" {
   }
 }
 
-# EKS Variables
-variable "eks_cluster_id" {}
-variable "eks_cluster_endpoint" {}
-variable "eks_cluster_certificate_authority_data" {}
-variable "eks_oidc_provider_arn" {}
+variable "eks_cluster_id" {
+  description = "EKS Cluster ID"
+}
+variable "eks_cluster_endpoint" {
+  description = "EKS Cluster Endpoint"
+}
+variable "eks_cluster_certificate_authority_data" {
+  description = "EKS Cluster Certificate Data"
+}
+variable "eks_oidc_provider_arn" {
+  description = "EKS OIDC Provider Arn"
+}
