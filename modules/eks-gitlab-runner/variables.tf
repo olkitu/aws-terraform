@@ -60,7 +60,7 @@ locals {
             [runners.cache.s3]
               ServerAddress = "s3.amazonaws.com"
               BucketName = "${var.s3_bucket_name}"
-              BucketLocation = "${data.aws_region.current}"
+              BucketLocation = "${data.aws_region.current.name}"
               AuthenticationType = "access-key"
         EOF
       "tags" : "${var.runner_tags}, ${var.cpu_arch}",
