@@ -1,22 +1,15 @@
+<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
 |------|---------|
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 4.23.0 |
 
-## Providers
-
-No providers.
-
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_cluster"></a> [cluster](#module\_cluster) | terraform-aws-modules/rds-aurora/aws | 7.2.2 |
-
-## Resources
-
-No resources.
 
 ## Inputs
 
@@ -50,3 +43,4 @@ No resources.
 | <a name="output_cluster_port"></a> [cluster\_port](#output\_cluster\_port) | Cluster Port |
 | <a name="output_cluster_reader_endpoint"></a> [cluster\_reader\_endpoint](#output\_cluster\_reader\_endpoint) | Cluster Reader endpoint |
 | <a name="output_security_group_id"></a> [security\_group\_id](#output\_security\_group\_id) | Cluster Security Group Id |
+<!-- END_TF_DOCS -->

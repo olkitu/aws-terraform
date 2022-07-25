@@ -1,3 +1,4 @@
+<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
@@ -46,3 +47,4 @@
 |------|-------------|
 | <a name="output_eks_iam_role_arn"></a> [eks\_iam\_role\_arn](#output\_eks\_iam\_role\_arn) | n/a |
 | <a name="output_eks_iam_role_name"></a> [eks\_iam\_role\_name](#output\_eks\_iam\_role\_name) | n/a |
+<!-- END_TF_DOCS -->

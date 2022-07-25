@@ -1,3 +1,4 @@
+<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
@@ -45,3 +46,4 @@
 |------|-------------|
 | <a name="output_iam_role_arn"></a> [iam\_role\_arn](#output\_iam\_role\_arn) | Load Balancer EKS Role Arn |
 | <a name="output_iam_role_name"></a> [iam\_role\_name](#output\_iam\_role\_name) | Load Balancer EKS Role Name |
+<!-- END_TF_DOCS -->

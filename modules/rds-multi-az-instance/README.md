@@ -1,3 +1,4 @@
+<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
@@ -55,3 +56,4 @@
 | <a name="output_db_instance_password"></a> [db\_instance\_password](#output\_db\_instance\_password) | Database Instance account password |
 | <a name="output_db_instance_port"></a> [db\_instance\_port](#output\_db\_instance\_port) | Database Port |
 | <a name="output_db_instance_username"></a> [db\_instance\_username](#output\_db\_instance\_username) | Database Instance account usename |
+<!-- END_TF_DOCS -->

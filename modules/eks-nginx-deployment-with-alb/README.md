@@ -1,3 +1,4 @@
+<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
@@ -11,10 +12,6 @@
 | Name | Version |
 |------|---------|
 | <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | >= 2.10 |
-
-## Modules
-
-No modules.
 
 ## Resources
 
@@ -34,7 +31,4 @@ No modules.
 | <a name="input_name"></a> [name](#input\_name) | n/a | `string` | `"aws-demo"` | no |
 | <a name="input_region"></a> [region](#input\_region) | n/a | `string` | `"us-east-1"` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | n/a | `map` | <pre>{<br>  "ManagedBy": "Terraform"<br>}</pre> | no |
-
-## Outputs
-
-No outputs.
+<!-- END_TF_DOCS -->

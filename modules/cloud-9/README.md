@@ -1,3 +1,4 @@
+<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
@@ -9,10 +10,6 @@
 | Name | Version |
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 4.23.0 |
-
-## Modules
-
-No modules.
 
 ## Resources
 
@@ -39,3 +36,4 @@ No modules.
 | <a name="output_id"></a> [id](#output\_id) | Environment Id |
 | <a name="output_type"></a> [type](#output\_type) | Environment Type |
 | <a name="output_url"></a> [url](#output\_url) | Cloud 9 Instance URL |
+<!-- END_TF_DOCS -->

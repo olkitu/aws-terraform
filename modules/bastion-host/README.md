@@ -1,3 +1,4 @@
+<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
@@ -45,3 +46,4 @@
 | <a name="output_public_dns"></a> [public\_dns](#output\_public\_dns) | Bastion Host Public DNS address |
 | <a name="output_public_ip"></a> [public\_ip](#output\_public\_ip) | Bastion Host Public IP-address |
 | <a name="output_security_group_id"></a> [security\_group\_id](#output\_security\_group\_id) | Bastion Host Security Group |
+<!-- END_TF_DOCS -->
