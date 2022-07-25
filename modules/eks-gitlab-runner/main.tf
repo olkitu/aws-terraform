@@ -8,7 +8,7 @@
 * module "gitlab_runner" {
 *   source = "https://github.com/olkitu/aws-terraform/tree/main/modules/eks-gitlab-runner"
 *   
-*   runnerRegisterationToken = "token"
+*   runner_registeration_token = "token"
 * 
 *   eks_cluster_id = module.eks.cluster_id
 *   eks_cluster_endpoint = module.eks.cluster_endpoint
@@ -35,14 +35,14 @@ provider "kubernetes" {
 
 resource "kubernetes_namespace" "gitlab-runner" {
   metadata {
-    name = var.namespace
+    name = var.eks_namespace
   }
 }
 
 resource "kubernetes_secret" "gitlab-runner" {
   metadata {
     name      = "gitlab-runner-eks"
-    namespace = var.namespace
+    namespace = var.eks_namespace
   }
 
   data = {
@@ -60,8 +60,8 @@ resource "helm_release" "gitlab-runner" {
   name             = local.name
   repository       = "https://charts.gitlab.io"
   chart            = "gitlab-runner"
-  version          = var.version
-  namespace        = kubernetes_namespace.gitlab-runner.name
+  version          = var.runner_version
+  namespace        = var.eks_namespace
   create_namespace = false
 
   values = [

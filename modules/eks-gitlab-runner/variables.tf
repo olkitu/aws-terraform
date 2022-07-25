@@ -6,20 +6,20 @@ locals {
   helm_chart_values = {
     "unregisterRunners"       = true,
     "imagePullPolicy"         = "Always",
-    "gitlabUrl"               = "https://gitlab.com",
-    "runnerRegistrationToken" = var.runnerRegisterationToken,
-    "concurrent"              = var.concurrent,
+    "gitlabUrl"               = var.gitlab_url,
+    "runnerRegistrationToken" = var.runner_registeration_token,
+    "concurrent"              = var.runner_concurrent,
     "rbac" = {
       "create" : true
     },
-    "sentryDsn" = "${var.sentryDsn}",
+    "sentryDsn" = "${var.runner_sentry_dsn}",
     "runners" = {
       "config" : <<EOF
         [[runners]]
           [runners.kubernetes]
             image = "debian:stable-slim"
             privileged = true
-            namespace = "${var.namespace}"
+            namespace = "${var.eks_namespace}"
             cpu_limit = "500m"
             cpu_limit_overwrite_max_allowed = "2"
             cpu_request = "300m"
@@ -63,7 +63,7 @@ locals {
               BucketLocation = "${data.aws_region.current}"
               AuthenticationType = "access-key"
         EOF
-      "tags" : "kubernetes, cluster, ${var.cpu_arch}",
+      "tags" : "${runner_tags}, ${var.cpu_arch}",
       "runUntagged" : false,
       "secret" : "gitlab-registry-secret"
       "cache" : {
@@ -80,6 +80,7 @@ variable "name" {
 }
 
 variable "region" {
+  description = "AWS Regon"
   default = "us-east-1"
 }
 
@@ -100,35 +101,35 @@ variable "eks_cluster_certificate_authority_data" {
   description = "EKS Cluster Certificate Data"
 }
 
-variable "namespace" {
+variable "eks_namespace" {
   description = "Kubernetes Namespace name"
   default = "gitlab-runner"
 }
 
 # Gitlab Runners configuration
 
-variable "gitlabUrl" {
+variable "gitlab_url" {
   description = "Gitlab URL"
   default     = "https://gitlab.com"
 }
 
-variable "runnerRegisterationToken" {
+variable "runner_registeration_token" {
   description = "Gitlab Registeration token"
   type        = string
   sensitive   = true
 }
 
-variable "concurrent" {
+variable "runner_concurrent" {
   description = "Gitlab Runner concurrent limit"
   default     = 10
 }
 
-variable "sentryDsn" {
+variable "runner_sentry_dsn" {
   description = "Sentry DSN"
   default     = false
 }
 
-variable "runnerTags" {
+variable "runner_tags" {
   type        = string
   description = "Runner Tags, list in string"
   default     = "kubernetes, cluster"

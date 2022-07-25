@@ -8,7 +8,7 @@ Example configuration:
 module "gitlab_runner" {
   source = "https://github.com/olkitu/aws-terraform/tree/main/modules/eks-gitlab-runner"
 
-  runnerRegisterationToken = "token"
+  runner_registeration_token = "token"
 
   eks_cluster_id = module.eks.cluster_id
   eks_cluster_endpoint = module.eks.cluster_endpoint
@@ -54,18 +54,18 @@ module "gitlab_runner" {
 |------|-------------|------|---------|:--------:|
 | <a name="input_aws_access_key"></a> [aws\_access\_key](#input\_aws\_access\_key) | AWS Access Key for shared cache | `string` | n/a | yes |
 | <a name="input_aws_access_key_secret"></a> [aws\_access\_key\_secret](#input\_aws\_access\_key\_secret) | AWS Access Key Secret | `string` | n/a | yes |
-| <a name="input_concurrent"></a> [concurrent](#input\_concurrent) | Gitlab Runner concurrent limit | `number` | `10` | no |
 | <a name="input_cpu_arch"></a> [cpu\_arch](#input\_cpu\_arch) | CPU Architechture, amd64/arm64 | `string` | `"amd64"` | no |
 | <a name="input_eks_cluster_certificate_authority_data"></a> [eks\_cluster\_certificate\_authority\_data](#input\_eks\_cluster\_certificate\_authority\_data) | EKS Cluster Certificate Data | `any` | n/a | yes |
 | <a name="input_eks_cluster_endpoint"></a> [eks\_cluster\_endpoint](#input\_eks\_cluster\_endpoint) | EKS Cluster Endpoint | `any` | n/a | yes |
 | <a name="input_eks_cluster_id"></a> [eks\_cluster\_id](#input\_eks\_cluster\_id) | EKS Cluster ID | `any` | n/a | yes |
-| <a name="input_gitlabUrl"></a> [gitlabUrl](#input\_gitlabUrl) | Gitlab URL | `string` | `"https://gitlab.com"` | no |
+| <a name="input_eks_namespace"></a> [eks\_namespace](#input\_eks\_namespace) | Kubernetes Namespace name | `string` | `"gitlab-runner"` | no |
+| <a name="input_gitlab_url"></a> [gitlab\_url](#input\_gitlab\_url) | Gitlab URL | `string` | `"https://gitlab.com"` | no |
 | <a name="input_name"></a> [name](#input\_name) | n/a | `string` | `"aws-demo"` | no |
-| <a name="input_namespace"></a> [namespace](#input\_namespace) | Kubernetes Namespace name | `string` | `"gitlab-runner"` | no |
-| <a name="input_region"></a> [region](#input\_region) | n/a | `string` | `"us-east-1"` | no |
-| <a name="input_runnerRegisterationToken"></a> [runnerRegisterationToken](#input\_runnerRegisterationToken) | Gitlab Registeration token | `string` | n/a | yes |
-| <a name="input_runnerTags"></a> [runnerTags](#input\_runnerTags) | Runner Tags, list in string | `string` | `"kubernetes, cluster"` | no |
+| <a name="input_region"></a> [region](#input\_region) | AWS Regon | `string` | `"us-east-1"` | no |
+| <a name="input_runner_concurrent"></a> [runner\_concurrent](#input\_runner\_concurrent) | Gitlab Runner concurrent limit | `number` | `10` | no |
+| <a name="input_runner_registeration_token"></a> [runner\_registeration\_token](#input\_runner\_registeration\_token) | Gitlab Registeration token | `string` | n/a | yes |
+| <a name="input_runner_sentry_dsn"></a> [runner\_sentry\_dsn](#input\_runner\_sentry\_dsn) | Sentry DSN | `bool` | `false` | no |
+| <a name="input_runner_tags"></a> [runner\_tags](#input\_runner\_tags) | Runner Tags, list in string | `string` | `"kubernetes, cluster"` | no |
 | <a name="input_s3_bucket_name"></a> [s3\_bucket\_name](#input\_s3\_bucket\_name) | S3 Bucket Name | `string` | n/a | yes |
-| <a name="input_sentryDsn"></a> [sentryDsn](#input\_sentryDsn) | Sentry DSN | `bool` | `false` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | n/a | `map` | <pre>{<br>  "ManagedBy": "Terraform"<br>}</pre> | no |
 <!-- END_TF_DOCS -->
