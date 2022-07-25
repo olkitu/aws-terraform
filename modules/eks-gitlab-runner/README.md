@@ -60,6 +60,7 @@ module "gitlab_runner" {
 | <a name="input_eks_cluster_id"></a> [eks\_cluster\_id](#input\_eks\_cluster\_id) | EKS Cluster ID | `any` | n/a | yes |
 | <a name="input_eks_namespace"></a> [eks\_namespace](#input\_eks\_namespace) | Kubernetes Namespace name | `string` | `"gitlab-runner"` | no |
 | <a name="input_gitlab_url"></a> [gitlab\_url](#input\_gitlab\_url) | Gitlab URL | `string` | `"https://gitlab.com"` | no |
+| <a name="input_name"></a> [name](#input\_name) | n/a | `string` | `"aws-demo"` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Regon | `string` | `"us-east-1"` | no |
 | <a name="input_runner_concurrent"></a> [runner\_concurrent](#input\_runner\_concurrent) | Gitlab Runner concurrent limit | `number` | `10` | no |
 | <a name="input_runner_registeration_token"></a> [runner\_registeration\_token](#input\_runner\_registeration\_token) | Gitlab Registeration token | `string` | n/a | yes |
