@@ -5,7 +5,7 @@
 * 
 * ```hcl
 * # module "eks_autoscale" {
-*   source = "../../modules/eks-autoscale"
+*   source = "github.com/olkitu/aws-terraform.git/modules/eks-autoscale"
 *
 *   name = "aws-demo"
 *

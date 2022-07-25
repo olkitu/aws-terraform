@@ -5,7 +5,7 @@ Enable EKS up and down autoscaling to meet changing demands.
 
 ```hcl
 # module "eks_autoscale" {
-  source = "../../modules/eks-autoscale"
+  source = "github.com/olkitu/aws-terraform.git/modules/eks-autoscale"
 
   name = "aws-demo"
 
