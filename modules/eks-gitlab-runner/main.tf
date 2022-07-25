@@ -6,7 +6,7 @@
 * Example configuration:
 * ```
 * module "gitlab_runner" {
-*   source = "https://github.com/olkitu/aws-terraform/tree/main/modules/eks-gitlab-runner"
+*   source = "github.com/olkitu/aws-terraform.git/modules/eks-gitlab-runner"
 *   
 *   runner_registeration_token = "token"
 * 
