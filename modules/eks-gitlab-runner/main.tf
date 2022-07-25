@@ -33,6 +33,18 @@ provider "kubernetes" {
   }
 }
 
+provider "helm" {
+  kubernetes {
+    host                   = var.eks_cluster_endpoint
+    cluster_ca_certificate = base64decode(var.eks_cluster_certificate_authority_data)
+    exec {
+      api_version = "client.authentication.k8s.io/v1alpha1"
+      args        = ["eks", "get-token", "--cluster-name", var.eks_cluster_id]
+      command     = "aws"
+    }
+  }
+}
+
 resource "kubernetes_namespace" "gitlab-runner" {
   metadata {
     name = var.eks_namespace
@@ -41,7 +53,7 @@ resource "kubernetes_namespace" "gitlab-runner" {
 
 resource "kubernetes_secret" "gitlab-runner" {
   metadata {
-    name      = "gitlab-runner-eks"
+    name      = "${local.name}-cache-access"
     namespace = var.eks_namespace
   }
 
