@@ -15,7 +15,7 @@ module "iam_autoscale_eks_role" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
   version = "~>4.21.0"
 
-  role_name        = "${local.name}-${data.aws_region.current}-iam_autoscale_eks_role"
+  role_name        = "${local.name}-${data.aws_region.current.name}-iam_autoscale_eks_role"
   role_description = "Autoscale Policy for EKS"
 
   attach_cluster_autoscaler_policy = true
