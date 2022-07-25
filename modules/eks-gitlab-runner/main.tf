@@ -61,6 +61,10 @@ resource "kubernetes_secret" "gitlab-runner" {
     accesskey = var.aws_access_key
     secretkey = var.aws_access_key_secret
   }
+
+  type = "generic"
+
+  depends_on = [kubernetes_namespace.gitlab-runner]
 }
 
 resource "local_file" "values_yaml" {
@@ -79,4 +83,6 @@ resource "helm_release" "gitlab-runner" {
   values = [
     local_file.values_yaml.content
   ]
+
+  depends_on = [kubernetes_secret.gitlab-runner]
 }
