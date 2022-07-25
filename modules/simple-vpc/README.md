@@ -6,6 +6,14 @@ Deploy simple VPC to AWS with:
 * Single NAT Gateway
 * IPv6 Egress gateway
 
+```hcl
+module "vpc" {
+ source = "github.com/olkitu/aws-terraform.git/modules/simple-vpc"
+
+  name = "aws-demo"
+}
+```
+
 ## Requirements
 
 | Name | Version |
@@ -16,7 +24,7 @@ Deploy simple VPC to AWS with:
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | terraform-aws-modules/vpc/aws | n/a |
+| <a name="module_vpc"></a> [vpc](#module\_vpc) | terraform-aws-modules/vpc/aws | 3.14.2 |
 
 ## Inputs
 

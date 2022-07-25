@@ -1,4 +1,19 @@
 <!-- BEGIN_TF_DOCS -->
+# Elastic Kubernetes Service - Managed
+
+Deploy EKS Cluster to AWS
+
+```hcl
+module "eks" {
+  source = "github.com/olkitu/aws-terraform.git/modules/eks-managed"
+
+  name = "aws-demo"
+
+  vpc_id         = module.vpc.vpc_id
+  vpc_subnet_ids = module.vpc.private_subnets
+}
+```
+
 ## Requirements
 
 | Name | Version |

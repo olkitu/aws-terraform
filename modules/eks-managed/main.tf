@@ -1,3 +1,19 @@
+/**
+* # Elastic Kubernetes Service - Managed
+*
+* Deploy EKS Cluster to AWS
+*
+* ```hcl
+* module "eks" {
+*   source = "github.com/olkitu/aws-terraform.git/modules/eks-managed"
+* 
+*   name = "aws-demo"
+* 
+*   vpc_id         = module.vpc.vpc_id
+*   vpc_subnet_ids = module.vpc.private_subnets
+* }
+* ```
+*/
 provider "kubernetes" {
   host                   = module.eks.cluster_endpoint
   cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)

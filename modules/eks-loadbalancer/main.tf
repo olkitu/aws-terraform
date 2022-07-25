@@ -1,3 +1,22 @@
+/**
+* # AWS Load Balancer Controller installation to EKS
+* 
+* This will install and configure [AWS Load Balancer Controller](https://docs.aws.amazon.com/eks/latest/userguide/aws-load-balancer-controller.html) add-on to EKS Cluster.
+*
+* ```hcl
+* module "eks_loadbalancer" {
+*   source = "github.com/olkitu/aws-terraform.git/modules/eks-loadbalancer"
+*
+*   name = "aws-demo"
+*
+*   eks_cluster_id                         = module.eks.cluster_id
+*   eks_cluster_endpoint                   = module.eks.cluster_endpoint
+*   eks_cluster_certificate_authority_data = module.eks.cluster_certificate_authority_data
+*   eks_oidc_provider_arn                  = module.eks.oidc_provider_arn
+* }
+* ```
+*/
+
 # https://docs.aws.amazon.com/eks/latest/userguide/aws-load-balancer-controller.html
 provider "kubernetes" {
   host                   = var.eks_cluster_endpoint

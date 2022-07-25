@@ -1,3 +1,32 @@
+/**
+* # Nginx deployment with ALB to EKS
+* 
+* This requires first deploy AWS Load Balancer Controller Add-on to EKS.
+*
+* ```
+* module "eks_loadbalancer" {
+*   source = "github.com/olkitu/aws-terraform.git/modules/eks-loadbalancer"
+*
+*   name = "aws-demo"
+*
+*   eks_cluster_id                         = module.eks.cluster_id
+*   eks_cluster_endpoint                   = module.eks.cluster_endpoint
+*   eks_cluster_certificate_authority_data = module.eks.cluster_certificate_authority_data
+*   eks_oidc_provider_arn                  = module.eks.oidc_provider_arn
+* }
+*
+* module "eks_nginx" {
+*   source = "github.com/olkitu/aws-terraform.git/modules/eks-test-app"
+*
+*   name = "aws-demo"
+*
+*   eks_cluster_id                         = module.eks.cluster_id
+*   eks_cluster_endpoint                   = module.eks.cluster_endpoint
+*   eks_cluster_certificate_authority_data = module.eks.cluster_certificate_authority_data
+* }
+* ``` 
+*/
+
 provider "kubernetes" {
   host                   = var.eks_cluster_endpoint
   cluster_ca_certificate = base64decode(var.eks_cluster_certificate_authority_data)

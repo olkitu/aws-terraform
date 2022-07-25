@@ -5,6 +5,14 @@
 * * 2x public and private Subnets
 * * Single NAT Gateway
 * * IPv6 Egress gateway
+*
+* ```hcl
+* module "vpc" {
+*  source = "github.com/olkitu/aws-terraform.git/modules/simple-vpc"
+*
+*   name = "aws-demo"
+* }
+* ```
 */
 
 module "vpc" {

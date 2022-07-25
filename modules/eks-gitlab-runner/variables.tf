@@ -60,7 +60,7 @@ locals {
             [runners.cache.s3]
               ServerAddress = "s3.amazonaws.com"
               BucketName = "${var.s3_bucket_name}"
-              BucketLocation = "${data.aws_region.current.name}"
+              BucketLocation = "${var.s3_bucket_region}"
               AuthenticationType = "access-key"
         EOF
       "tags" : "${var.runner_tags}, ${var.cpu_arch}",
@@ -150,6 +150,12 @@ variable "cpu_arch" {
 variable "s3_bucket_name" {
   description = "S3 Bucket Name"
   type        = string
+}
+
+variable "s3_bucket_region" {
+  description = "S3 Bucket Region"
+  type = string
+  default = "us-east-1"
 }
 
 # IAM User Access Keys for S3 shared cache access

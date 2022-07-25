@@ -16,7 +16,7 @@
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_ec2_bastion"></a> [ec2\_bastion](#module\_ec2\_bastion) | terraform-aws-modules/ec2-instance/aws | ~> 4.1.1 |
-| <a name="module_ec2_bastion_sg"></a> [ec2\_bastion\_sg](#module\_ec2\_bastion\_sg) | terraform-aws-modules/security-group/aws//modules/ssh | n/a |
+| <a name="module_ec2_bastion_sg"></a> [ec2\_bastion\_sg](#module\_ec2\_bastion\_sg) | terraform-aws-modules/security-group/aws//modules/ssh | 4.9.0 |
 
 ## Resources
 

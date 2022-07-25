@@ -3,8 +3,27 @@
 
 Deploy Gitlab Runner to AWS EKS Cluster.
 
-Example configuration:
-```
+```hcl
+module "s3_bucket" {
+ source = "terraform-aws-modules/s3-bucket/aws"
+
+ bucket = "gitlab-runner-cache"
+ acl    = "private"
+
+ block_public_acls = true
+ block_public_policy = true
+ ignore_public_acls = true
+ restrict_public_buckets = true
+
+ server_side_encryption_configuration = {
+   rule = {
+     apply_server_side_encryption_by_default = {
+       sse_algorithm     = "AES256"
+     }
+   }
+ }
+}
+
 module "gitlab_runner" {
   source = "github.com/olkitu/aws-terraform.git/modules/eks-gitlab-runner"
 
@@ -68,5 +87,6 @@ module "gitlab_runner" {
 | <a name="input_runner_tags"></a> [runner\_tags](#input\_runner\_tags) | Runner Tags, list in string | `string` | `"kubernetes, cluster"` | no |
 | <a name="input_runner_version"></a> [runner\_version](#input\_runner\_version) | Gitlab Runner Helm Chart version | `string` | `"0.41.0"` | no |
 | <a name="input_s3_bucket_name"></a> [s3\_bucket\_name](#input\_s3\_bucket\_name) | S3 Bucket Name | `string` | n/a | yes |
+| <a name="input_s3_bucket_region"></a> [s3\_bucket\_region](#input\_s3\_bucket\_region) | S3 Bucket Region | `string` | `"us-east-1"` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | n/a | `map` | <pre>{<br>  "ManagedBy": "Terraform"<br>}</pre> | no |
 <!-- END_TF_DOCS -->

@@ -1,3 +1,6 @@
+/**
+* # Bastion Host
+*/
 module "ec2_bastion" {
   source  = "terraform-aws-modules/ec2-instance/aws"
   version = "~> 4.1.1"
