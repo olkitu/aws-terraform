@@ -63,7 +63,7 @@ locals {
               BucketLocation = "${data.aws_region.current}"
               AuthenticationType = "access-key"
         EOF
-      "tags" : "${runner_tags}, ${var.cpu_arch}",
+      "tags" : "${var.runner_tags}, ${var.cpu_arch}",
       "runUntagged" : false,
       "secret" : "gitlab-registry-secret"
       "cache" : {
