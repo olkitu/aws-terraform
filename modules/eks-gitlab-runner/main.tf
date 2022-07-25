@@ -34,7 +34,8 @@
 *   eks_cluster_endpoint = module.eks.cluster_endpoint
 *   eks_cluster_certificate_authority_data = module.eks.cluster_certificate_authority_data
 * 
-*   s3_bucket_name = "gitlab-runner-cache"
+*   s3_bucket_name = module.s3_bucket.s3_bucket_id
+*   s3_bucket_region = module.s3_bucket.s3_bucket_region
 *   aws_access_key = module.iam_user.iam_access_key_id	
 *   aws_access_key_secret = module.iam_user.iam_access_key_secret
 *   
