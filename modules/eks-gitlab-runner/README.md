@@ -31,7 +31,7 @@ module "iam_assumable_role_with_oidc" {
 
  role_name = "gitlab-runner-role"
 
- provider_url = module.eks.oidc_provider_arn
+ provider_url = module.eks.oidc_provider
 
  role_policy_arns = [
    module.iam_policy.arn,
@@ -46,25 +46,25 @@ module "iam_policy" {
   description = "Allow Gitlab Runner access S3"
 
   policy = <<EOF
-  {
-    "Version": "2012-10-17",
-    "Statement": [
-     {
-        "Action": [
-           "s3:ListBucket",
-           "s3:PutObject",
-           "s3:GetObject",
-           "s3:DeleteObject"
-        ],
-      "Effect": "Allow",
-      "Resource": [
-         "${module.s3_bucket.s3_bucket_arn}",
-         "${module.s3_bucket.s3_bucket_arn}/*",
-       ]
-     }
-   ]
-  }
-  EOF
+{
+ "Version": "2012-10-17",
+ "Statement": [
+   {
+     "Action": [
+       "s3:GetObjectVersion",
+       "s3:PutObject",
+       "s3:GetObject",
+       "s3:DeleteObject"
+     ],
+     "Effect": "Allow",
+     "Resource": [
+       "${module.s3_bucket.s3_bucket_arn}",
+       "${module.s3_bucket.s3_bucket_arn}/*"
+     ]
+   }
+ ]
+}
+EOF
 }
 
 module "gitlab_runner" {

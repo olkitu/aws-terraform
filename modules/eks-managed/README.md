@@ -67,5 +67,6 @@ module "eks" {
 | <a name="output_cluster_certificate_authority_data"></a> [cluster\_certificate\_authority\_data](#output\_cluster\_certificate\_authority\_data) | Cluster Certificate Authority Data |
 | <a name="output_cluster_endpoint"></a> [cluster\_endpoint](#output\_cluster\_endpoint) | Cluster Endpoint |
 | <a name="output_cluster_id"></a> [cluster\_id](#output\_cluster\_id) | Cluster Id |
+| <a name="output_oidc_provider"></a> [oidc\_provider](#output\_oidc\_provider) | Cluster OIDC Provider |
 | <a name="output_oidc_provider_arn"></a> [oidc\_provider\_arn](#output\_oidc\_provider\_arn) | Cluster OIDC Provider Arn |
 <!-- END_TF_DOCS -->
