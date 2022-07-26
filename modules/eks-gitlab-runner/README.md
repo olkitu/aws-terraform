@@ -34,7 +34,7 @@ module "iam_assumable_role_with_oidc" {
  provider_url = module.eks.oidc_provider_arn
 
  role_policy_arns = [
-   module.iam_policy.arn",
+   module.iam_policy.arn,
  ]
  number_of_role_policy_arns = 1
 }
@@ -79,7 +79,7 @@ module "gitlab_runner" {
   s3_bucket_name = module.s3_bucket.s3_bucket_id
   s3_bucket_region = module.s3_bucket.s3_bucket_region
 
-  runner_role_arn = module.iam.iam_role_arn
+  runner_role_arn = module.iam_assumable_role_with_oidc.iam_role_arn
 }
 ```
 
