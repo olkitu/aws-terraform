@@ -10,7 +10,10 @@ locals {
     "runnerRegistrationToken" = var.runner_registeration_token,
     "concurrent"              = var.runner_concurrent,
     "rbac" = {
-      "create" : true
+      "create" = true,
+      "serviceAccountAnnotations" = {
+        "eks.amazonaws.com/role-arn" = "${var.runner_role_arn}"
+      }
     },
     "sentryDsn" = "${var.runner_sentry_dsn}",
     "runners" = {
@@ -61,14 +64,11 @@ locals {
               ServerAddress = "s3.amazonaws.com"
               BucketName = "${var.s3_bucket_name}"
               BucketLocation = "${var.s3_bucket_region}"
-              AuthenticationType = "access-key"
+              AuthenticationType = "iam"
         EOF
       "tags" : "${var.runner_tags}, ${var.cpu_arch}",
       "runUntagged" : false,
       "secret" : "gitlab-registry-secret"
-      "cache" : {
-        "secretName" : "${kubernetes_secret.gitlab-runner.metadata.0.name}"
-      }
     }
   }
 }
@@ -158,14 +158,8 @@ variable "s3_bucket_region" {
   default     = "us-east-1"
 }
 
-# IAM User Access Keys for S3 shared cache access
-variable "aws_access_key" {
+# IAM Role for S3 shared cache access
+variable "runner_role_arn" {
   description = "AWS Access Key for shared cache"
   type        = string
-}
-
-variable "aws_access_key_secret" {
-  description = "AWS Access Key Secret"
-  type        = string
-  sensitive   = true
 }

@@ -24,6 +24,49 @@ module "s3_bucket" {
  }
 }
 
+module "iam_assumable_role_with_oidc" {
+ source  = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
+
+ create_role = true
+
+ role_name = "gitlab-runner-role"
+
+ provider_url = module.eks.oidc_provider_arn
+
+ role_policy_arns = [
+   module.iam_policy.arn",
+ ]
+ number_of_role_policy_arns = 1
+}
+
+module "iam_policy" {
+  source = "terraform-aws-modules/iam/aws//modules/iam-policy"
+
+  name = "gitlab-runner-policy"
+  description = "Allow Gitlab Runner access S3"
+
+  policy = <<EOF
+  {
+    "Version": "2012-10-17",
+    "Statement": [
+     {
+        "Action": [
+           "s3:ListBucket",
+           "s3:PutObject",
+           "s3:GetObject",
+           "s3:DeleteObject"
+        ],
+      "Effect": "Allow",
+      "Resource": [
+         "${module.s3_bucket.s3_bucket_arn}",
+         "${module.s3_bucket.s3_bucket_arn}/*",
+       ]
+     }
+   ]
+  }
+  EOF
+}
+
 module "gitlab_runner" {
   source = "github.com/olkitu/aws-terraform.git/modules/eks-gitlab-runner"
 
@@ -35,9 +78,8 @@ module "gitlab_runner" {
 
   s3_bucket_name = module.s3_bucket.s3_bucket_id
   s3_bucket_region = module.s3_bucket.s3_bucket_region
-  aws_access_key = module.iam_user.iam_access_key_id	
-  aws_access_key_secret = module.iam_user.iam_access_key_secret
 
+  runner_role_arn = module.iam.iam_role_arn
 }
 ```
 
@@ -64,7 +106,6 @@ module "gitlab_runner" {
 |------|------|
 | [helm_release.gitlab-runner](https://registry.terraform.io/providers/hashicorp/helm/2.5.0/docs/resources/release) | resource |
 | [kubernetes_namespace.gitlab-runner](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/namespace) | resource |
-| [kubernetes_secret.gitlab-runner](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/secret) | resource |
 | [local_file.values_yaml](https://registry.terraform.io/providers/hashicorp/local/latest/docs/resources/file) | resource |
 | [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
 
@@ -72,8 +113,6 @@ module "gitlab_runner" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_aws_access_key"></a> [aws\_access\_key](#input\_aws\_access\_key) | AWS Access Key for shared cache | `string` | n/a | yes |
-| <a name="input_aws_access_key_secret"></a> [aws\_access\_key\_secret](#input\_aws\_access\_key\_secret) | AWS Access Key Secret | `string` | n/a | yes |
 | <a name="input_cpu_arch"></a> [cpu\_arch](#input\_cpu\_arch) | CPU Architechture, amd64/arm64 | `string` | `"amd64"` | no |
 | <a name="input_eks_cluster_certificate_authority_data"></a> [eks\_cluster\_certificate\_authority\_data](#input\_eks\_cluster\_certificate\_authority\_data) | EKS Cluster Certificate Data | `any` | n/a | yes |
 | <a name="input_eks_cluster_endpoint"></a> [eks\_cluster\_endpoint](#input\_eks\_cluster\_endpoint) | EKS Cluster Endpoint | `any` | n/a | yes |
@@ -84,6 +123,7 @@ module "gitlab_runner" {
 | <a name="input_region"></a> [region](#input\_region) | AWS Regon | `string` | `"us-east-1"` | no |
 | <a name="input_runner_concurrent"></a> [runner\_concurrent](#input\_runner\_concurrent) | Gitlab Runner concurrent limit | `number` | `10` | no |
 | <a name="input_runner_registeration_token"></a> [runner\_registeration\_token](#input\_runner\_registeration\_token) | Gitlab Registeration token | `string` | n/a | yes |
+| <a name="input_runner_role_arn"></a> [runner\_role\_arn](#input\_runner\_role\_arn) | AWS Access Key for shared cache | `string` | n/a | yes |
 | <a name="input_runner_sentry_dsn"></a> [runner\_sentry\_dsn](#input\_runner\_sentry\_dsn) | Sentry DSN | `string` | `""` | no |
 | <a name="input_runner_tags"></a> [runner\_tags](#input\_runner\_tags) | Runner Tags, list in string | `string` | `"kubernetes, cluster"` | no |
 | <a name="input_runner_version"></a> [runner\_version](#input\_runner\_version) | Gitlab Runner Helm Chart version | `string` | `"0.41.0"` | no |

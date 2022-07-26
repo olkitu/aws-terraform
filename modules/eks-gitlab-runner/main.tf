@@ -24,6 +24,50 @@
 *    }
 *  }
 * }
+* 
+* module "iam_assumable_role_with_oidc" {
+*  source  = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
+*
+*  create_role = true
+*
+*  role_name = "gitlab-runner-role"
+*
+*
+*  provider_url = module.eks.oidc_provider_arn
+*
+*  role_policy_arns = [
+*    module.iam_policy.arn",
+*  ]
+*  number_of_role_policy_arns = 1
+* }
+* 
+* module "iam_policy" {
+*   source = "terraform-aws-modules/iam/aws//modules/iam-policy"
+*
+*   name = "gitlab-runner-policy"
+*   description = "Allow Gitlab Runner access S3"
+*
+*   policy = <<EOF
+*   {
+*     "Version": "2012-10-17",
+*     "Statement": [
+*      {
+*         "Action": [
+*            "s3:ListBucket",
+*            "s3:PutObject",
+*            "s3:GetObject",
+*            "s3:DeleteObject"
+*         ],
+*       "Effect": "Allow",
+*       "Resource": [
+*          "${module.s3_bucket.s3_bucket_arn}",
+*          "${module.s3_bucket.s3_bucket_arn}/*",
+*        ]
+*      }
+*    ]
+*   }
+*   EOF
+* }
 *
 * module "gitlab_runner" {
 *   source = "github.com/olkitu/aws-terraform.git/modules/eks-gitlab-runner"
@@ -36,9 +80,8 @@
 * 
 *   s3_bucket_name = module.s3_bucket.s3_bucket_id
 *   s3_bucket_region = module.s3_bucket.s3_bucket_region
-*   aws_access_key = module.iam_user.iam_access_key_id	
-*   aws_access_key_secret = module.iam_user.iam_access_key_secret
-*   
+* 
+*   runner_role_arn = module.iam.iam_role_arn
 * }
 * ```
 */
@@ -72,22 +115,6 @@ resource "kubernetes_namespace" "gitlab-runner" {
   }
 }
 
-resource "kubernetes_secret" "gitlab-runner" {
-  metadata {
-    name      = "${local.name}-cache-access"
-    namespace = var.eks_namespace
-  }
-
-  data = {
-    accesskey = var.aws_access_key
-    secretkey = var.aws_access_key_secret
-  }
-
-  type = "generic"
-
-  depends_on = [kubernetes_namespace.gitlab-runner]
-}
-
 resource "local_file" "values_yaml" {
   content  = yamlencode(local.helm_chart_values)
   filename = "${path.module}/gitlab_values.yaml"
@@ -104,6 +131,4 @@ resource "helm_release" "gitlab-runner" {
   values = [
     local_file.values_yaml.content
   ]
-
-  depends_on = [kubernetes_secret.gitlab-runner]
 }
