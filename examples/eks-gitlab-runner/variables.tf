@@ -1,5 +1,5 @@
 locals {
-  name = "truongfi-gr-demo"
+  name = "aws-runner-demo"
   tags = {
     ManagedBy = "Terraform"
   }
