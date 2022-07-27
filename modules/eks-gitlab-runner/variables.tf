@@ -12,10 +12,10 @@ locals {
     "rbac" = {
       "create" = true,
       "serviceAccountAnnotations" = {
-        "eks.amazonaws.com/role-arn" = "${var.runner_role_arn}"
+        "eks.amazonaws.com/role-arn" = var.runner_role_arn
       }
     },
-    "sentryDsn" = "${var.runner_sentry_dsn}",
+    "sentryDsn" = var.runner_sentry_dsn,
     "runners" = {
       "config" : <<EOF
         [[runners]]
