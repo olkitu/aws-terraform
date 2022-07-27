@@ -1,6 +1,8 @@
 .terraform
 terraform.tfstate
+terraform.tfstate.backup
 .terraform.lock.hcl
 .teraform.tfstate.lock.info
+.terraform.tfstate.lock.info
 .infracost
 /testing
