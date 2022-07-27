@@ -1,3 +1,6 @@
 .terraform
+terraform.tfstate
+.terraform.lock.hcl
+.teraform.tfstate.lock.info
 .infracost
 /testing
