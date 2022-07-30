@@ -52,6 +52,7 @@ locals {
           [runners.kubernetes.node_selector]
             "kubernetes.io/arch" = "${var.cpu_arch}"
             "kubernetes.io/os" = "linux"
+            "eks.amazonaws.com/capacityType" = "${var.capacity_type}"
           [[runners.kubernetes.volumes.empty_dir]]
             name = "docker-certs"
             mount_path = "/certs/client"
@@ -144,6 +145,11 @@ variable "runner_tags" {
 variable "cpu_arch" {
   description = "CPU Architechture, amd64/arm64"
   default     = "amd64"
+}
+
+variable "capacity_type" {
+  description = "Capacity Type, ON_DEMAND or SPOT"
+  default     = "SPOT"
 }
 
 # S3 Bucket for caching

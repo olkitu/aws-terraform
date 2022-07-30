@@ -15,5 +15,5 @@ output "type" {
 
 output "url" {
   description = "Cloud 9 Instance URL"
-  value       = "https://${data.aws_region.current}.console.aws.amazon.com/cloud9/ide/${aws_cloud9_environment_ec2.cloud9_environment.id}"
+  value       = "https://${data.aws_region.current.name}.console.aws.amazon.com/cloud9/ide/${aws_cloud9_environment_ec2.cloud9_environment.id}"
 }
