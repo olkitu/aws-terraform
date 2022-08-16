@@ -49,6 +49,7 @@ module "eks" {
 |------|-------------|------|---------|:--------:|
 | <a name="input_capacity_type"></a> [capacity\_type](#input\_capacity\_type) | EKS Instance Capacity Type, SPOT or ON\_DEMAND | `string` | `"ON_DEMAND"` | no |
 | <a name="input_cluster_version"></a> [cluster\_version](#input\_cluster\_version) | EKS Cluster version | `number` | `1.22` | no |
+| <a name="input_desired_size"></a> [desired\_size](#input\_desired\_size) | Desire size of nodes in EKS Cluster | `number` | `1` | no |
 | <a name="input_disk_size"></a> [disk\_size](#input\_disk\_size) | Disk size of Managed EKS Instances | `number` | `20` | no |
 | <a name="input_instance_types"></a> [instance\_types](#input\_instance\_types) | List of amd64 supported instance types | `list(string)` | <pre>[<br>  "t3.small",<br>  "t3.medium"<br>]</pre> | no |
 | <a name="input_max_size"></a> [max\_size](#input\_max\_size) | Max amount of nodes in EKS Cluster | `number` | `5` | no |
@@ -67,6 +68,8 @@ module "eks" {
 | <a name="output_cluster_certificate_authority_data"></a> [cluster\_certificate\_authority\_data](#output\_cluster\_certificate\_authority\_data) | Cluster Certificate Authority Data |
 | <a name="output_cluster_endpoint"></a> [cluster\_endpoint](#output\_cluster\_endpoint) | Cluster Endpoint |
 | <a name="output_cluster_id"></a> [cluster\_id](#output\_cluster\_id) | Cluster Id |
+| <a name="output_node_group_amd64_iam_role_arn"></a> [node\_group\_amd64\_iam\_role\_arn](#output\_node\_group\_amd64\_iam\_role\_arn) | Node Group amd64 role arn |
+| <a name="output_node_group_amd64_iam_role_name"></a> [node\_group\_amd64\_iam\_role\_name](#output\_node\_group\_amd64\_iam\_role\_name) | Node Groyup amd64 role name |
 | <a name="output_oidc_provider"></a> [oidc\_provider](#output\_oidc\_provider) | Cluster OIDC Provider |
 | <a name="output_oidc_provider_arn"></a> [oidc\_provider\_arn](#output\_oidc\_provider\_arn) | Cluster OIDC Provider Arn |
 <!-- END_TF_DOCS -->

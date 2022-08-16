@@ -22,3 +22,13 @@ output "oidc_provider_arn" {
   description = "Cluster OIDC Provider Arn"
   value       = module.eks.oidc_provider_arn
 }
+
+output "node_group_amd64_iam_role_arn" {
+  description = "Node Group amd64 role arn"
+  value       = module.eks.eks_managed_node_groups["amd64"].iam_role_arn
+}
+
+output "node_group_amd64_iam_role_name" {
+  description = "Node Groyup amd64 role name"
+  value       = module.eks.eks_managed_node_groups["amd64"].iam_role_name
+}

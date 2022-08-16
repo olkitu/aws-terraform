@@ -68,6 +68,12 @@ variable "max_size" {
   description = "Max amount of nodes in EKS Cluster"
 }
 
+variable "desired_size" {
+  type        = number
+  default     = 1
+  description = "Desire size of nodes in EKS Cluster"
+}
+
 variable "capacity_type" {
   default     = "ON_DEMAND"
   description = "EKS Instance Capacity Type, SPOT or ON_DEMAND"

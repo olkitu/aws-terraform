@@ -91,6 +91,14 @@ module "eks" {
       cidr_blocks      = ["0.0.0.0/0"]
       ipv6_cidr_blocks = ["::/0"]
     }
+    ingress_nodes_karpenter_port = {
+      description                   = "Cluster API to Node group for Karpenter webhook"
+      protocol                      = "tcp"
+      from_port                     = 8443
+      to_port                       = 8443
+      type                          = "ingress"
+      source_cluster_security_group = true
+    }
   }
 
   eks_managed_node_group_defaults = {
@@ -104,26 +112,21 @@ module "eks" {
   eks_managed_node_groups = {
     amd64 = {
       ami_type     = "BOTTLEROCKET_x86_64"
-      desired_size = var.min_size
+      desired_size = var.desired_size
       min_size     = var.min_size
       max_size     = var.max_size
 
       instance_types = var.instance_types
       capacity_type  = var.capacity_type
 
-      create_launch_template = false
-      launch_template_name   = ""
-
-      remote_access = {
-        ec2_ssh_key               = aws_key_pair.this.key_name
-        source_security_group_ids = [aws_security_group.remote_access.id]
-      }
     }
   }
 
   manage_aws_auth_configmap = true
 
-  tags = local.tags
+  tags = merge(local.tags, {
+    "karpenter.sh/discovery/${local.name}" = local.name
+  })
 }
 
 resource "aws_kms_key" "eks" {
