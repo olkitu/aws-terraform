@@ -12,7 +12,7 @@ Deploy simple EC2 Autoscalegroup to AWS.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_asg"></a> [asg](#module\_asg) | terraform-aws-modules/autoscaling/aws | n/a |
+| <a name="module_asg"></a> [asg](#module\_asg) | terraform-aws-modules/autoscaling/aws | 6.5.1 |
 | <a name="module_ssh_security_group"></a> [ssh\_security\_group](#module\_ssh\_security\_group) | terraform-aws-modules/security-group/aws//modules/ssh | ~> 4.0 |
 
 ## Resources
