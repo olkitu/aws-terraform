@@ -41,7 +41,7 @@ variable "vpc_subnet_ids" {
 variable "cluster_version" {
   type        = number
   description = "EKS Cluster version"
-  default     = 1.22
+  default     = 1.23
 }
 
 variable "instance_types" {
