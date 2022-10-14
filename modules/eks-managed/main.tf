@@ -31,8 +31,12 @@ module "eks" {
   cluster_name    = local.name
   cluster_version = var.cluster_version
 
-  cluster_endpoint_private_access = true
-  cluster_endpoint_public_access  = true
+  cluster_endpoint_private_access      = true
+  cluster_endpoint_public_access       = true
+  cluster_endpoint_public_access_cidrs = var.cluster_endpoint_public_access_cidrs
+
+  cluster_ip_family          = var.cluster_ip_family
+  create_cni_ipv6_iam_policy = true #Must be true when cluster_ip_family is Ipv6
 
   cluster_addons = {
     coredns = {

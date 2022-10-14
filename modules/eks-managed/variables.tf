@@ -44,6 +44,18 @@ variable "cluster_version" {
   default     = 1.23
 }
 
+variable "cluster_endpoint_public_access_cidrs" {
+  type        = list(string)
+  description = "List of CIDR's to allow access to AWS EKS Public API"
+  default     = ["0.0.0.0/0"]
+}
+
+variable "cluster_ip_family" {
+  type        = string
+  default     = "ipv4"
+  description = "IPv4 or IPv6 to assigne pod and service address, default is ipv4. Changing this require replace resource."
+}
+
 variable "instance_types" {
   type        = list(string)
   default     = ["t3.small", "t3.medium"]

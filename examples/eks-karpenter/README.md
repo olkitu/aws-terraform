@@ -11,7 +11,9 @@ After deployment you can use Karpenter official documentation first use section 
 
 ## Requirements
 
-No requirements.
+| Name | Version |
+|------|---------|
+| <a name="requirement_kubectl"></a> [kubectl](#requirement\_kubectl) | >= 1.7.0 |
 
 ## Providers
 

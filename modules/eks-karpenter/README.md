@@ -3,6 +3,44 @@
 
 Enable EKS up and down autoscaling to meet changing demands.
 
+# Add this to `main.tf`
+```
+provider "kubernetes" {
+ host                   = module.eks.cluster_endpoint
+ cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
+ exec {
+   api_version = "client.authentication.k8s.io/v1alpha1"
+   args        = ["eks", "get-token", "--cluster-name", module.eks.cluster_id]
+   command     = "aws"
+ }
+}
+
+provider "helm" {
+ kubernetes {
+   host                   = module.eks.cluster_endpoint
+   cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
+   exec {
+     api_version = "client.authentication.k8s.io/v1alpha1"
+     args        = ["eks", "get-token", "--cluster-name", module.eks.cluster_id]
+     command     = "aws"
+   }
+ }
+}
+
+provider "kubectl" {
+ apply_retry_count      = 5
+ host                   = module.eks.cluster_endpoint
+ cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
+ load_config_file       = false
+
+ exec {
+   api_version = "client.authentication.k8s.io/v1alpha1"
+   command     = "aws"
+   args        = ["eks", "get-token", "--cluster-name", module.eks.cluster_id]
+ }
+}
+ ```
+
 ## Requirements
 
 | Name | Version |
@@ -40,7 +78,6 @@ Enable EKS up and down autoscaling to meet changing demands.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_eks_cluster_certificate_authority_data"></a> [eks\_cluster\_certificate\_authority\_data](#input\_eks\_cluster\_certificate\_authority\_data) | EKS Cluster Certificate Data | `any` | n/a | yes |
 | <a name="input_eks_cluster_endpoint"></a> [eks\_cluster\_endpoint](#input\_eks\_cluster\_endpoint) | EKS Cluster Endpoint | `any` | n/a | yes |
 | <a name="input_eks_cluster_id"></a> [eks\_cluster\_id](#input\_eks\_cluster\_id) | EKS Cluster ID | `any` | n/a | yes |
 | <a name="input_eks_oidc_provider_arn"></a> [eks\_oidc\_provider\_arn](#input\_eks\_oidc\_provider\_arn) | EKS OIDC Provider Arn | `any` | n/a | yes |
