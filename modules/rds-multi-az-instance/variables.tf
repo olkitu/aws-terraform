@@ -107,3 +107,15 @@ variable "max_allocated_storage" {
   default     = 50
   type        = number
 }
+
+variable "create_replica_db_instance" {
+  description = "Create Replica DB Instance"
+  default     = true
+  type        = bool
+}
+
+variable "deletion_protection" {
+  description = "Deletion protection for RDS Database Instances"
+  default     = true
+  type        = bool
+}

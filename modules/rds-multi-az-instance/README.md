@@ -30,7 +30,9 @@
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_allocated_storage"></a> [allocated\_storage](#input\_allocated\_storage) | RDS Instance Allocated Storage | `number` | `10` | no |
+| <a name="input_create_replica_db_instance"></a> [create\_replica\_db\_instance](#input\_create\_replica\_db\_instance) | Create Replica DB Instance | `bool` | `true` | no |
 | <a name="input_db_name"></a> [db\_name](#input\_db\_name) | Database Name | `string` | `"demodb"` | no |
+| <a name="input_deletion_protection"></a> [deletion\_protection](#input\_deletion\_protection) | Deletion protection for RDS Database Instances | `bool` | `true` | no |
 | <a name="input_engine"></a> [engine](#input\_engine) | Database Engine | `string` | `"mysql"` | no |
 | <a name="input_engine_version"></a> [engine\_version](#input\_engine\_version) | Database Engine version | `string` | `"8.0.27"` | no |
 | <a name="input_family"></a> [family](#input\_family) | Database Family | `string` | `"mysql8.0"` | no |

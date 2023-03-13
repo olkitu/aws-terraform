@@ -1,4 +1,14 @@
 # EC2
+output "id" {
+  description = "Instance ID"
+  value       = module.ec2_bastion.id
+}
+
+output "arn" {
+  description = "Instance ARN"
+  value       = module.ec2_bastion.arn
+}
+
 output "public_ip" {
   description = "Bastion Host Public IP-address"
   value       = module.ec2_bastion.public_ip

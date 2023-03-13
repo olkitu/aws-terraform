@@ -23,7 +23,9 @@ module "master" {
   username = var.username
   port     = local.port
 
-  multi_az               = true
+  iam_database_authentication_enabled = true
+
+  multi_az               = var.create_replica_db_instance ## If not create replica then should multi_az to be false
   availability_zone      = data.aws_availability_zones.available.names[0]
   create_db_subnet_group = true
   subnet_ids             = var.vpc_subnet_ids
@@ -39,6 +41,23 @@ module "master" {
   deletion_protection     = false
 
   tags = local.tags
+
+  options = [
+    {
+      option_name = "MARIADB_AUDIT_PLUGIN"
+
+      option_settings = [
+        {
+          name  = "SERVER_AUDIT_EVENTS"
+          value = "CONNECT"
+        },
+        {
+          name  = "SERVER_AUDIT_FILE_ROTATIONS"
+          value = "37"
+        },
+      ]
+    }
+  ]
 }
 
 module "replica" {
@@ -62,6 +81,8 @@ module "replica" {
 
   port = local.port
 
+  iam_database_authentication_enabled = true
+
   multi_az               = false
   availability_zone      = data.aws_availability_zones.available.names[1]
   vpc_security_group_ids = [module.security_group.security_group_id]
@@ -73,6 +94,8 @@ module "replica" {
   backup_retention_period = 0
   skip_final_snapshot     = true
   deletion_protection     = false
+
+  create_db_instance = var.create_replica_db_instance
 
   tags = local.tags
 }

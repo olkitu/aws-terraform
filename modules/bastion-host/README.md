@@ -5,13 +5,13 @@
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 4.23.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.23.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 4.23.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.23.0 |
 
 ## Modules
 
@@ -45,6 +45,8 @@
 
 | Name | Description |
 |------|-------------|
+| <a name="output_arn"></a> [arn](#output\_arn) | Instance ARN |
+| <a name="output_id"></a> [id](#output\_id) | Instance ID |
 | <a name="output_public_dns"></a> [public\_dns](#output\_public\_dns) | Bastion Host Public DNS address |
 | <a name="output_public_ip"></a> [public\_ip](#output\_public\_ip) | Bastion Host Public IP-address |
 | <a name="output_security_group_id"></a> [security\_group\_id](#output\_security\_group\_id) | Bastion Host Security Group |
