@@ -27,7 +27,6 @@ module "vpc" {
   public_subnets  = var.public_subnets
 
   enable_ipv6                                    = true
-  assign_ipv6_address_on_creation                = true
   public_subnet_assign_ipv6_address_on_creation  = true
   private_subnet_assign_ipv6_address_on_creation = true
 
