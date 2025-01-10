@@ -22,6 +22,7 @@
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_force_destroy"></a> [force\_destroy](#input\_force\_destroy) | Force destroy? default: false | `bool` | `false` | no |
 | <a name="input_name"></a> [name](#input\_name) | n/a | `string` | `"aws-demo"` | no |
 | <a name="input_region"></a> [region](#input\_region) | n/a | `string` | `"us-east-1"` | no |
 | <a name="input_s3_bucket_name"></a> [s3\_bucket\_name](#input\_s3\_bucket\_name) | VPC Flow log S3 Bucket name | `string` | n/a | yes |

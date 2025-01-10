@@ -53,3 +53,9 @@ variable "s3_bucket_name" {
   type        = string
   description = "VPC Flow log S3 Bucket name"
 }
+
+variable "force_destroy" {
+  type = bool
+  description = "Force destroy? default: false"
+  default = false
+}

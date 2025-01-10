@@ -12,6 +12,8 @@ resource "aws_athena_workgroup" "vpc_flow_logs" {
       }
     }
   }
+
+  force_destroy = var.force_destroy
 }
 
 resource "aws_glue_catalog_database" "vpc_flow_logs" {

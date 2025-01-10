@@ -69,6 +69,8 @@ module "athena" {
 
   workgroup_name = "vpc_flow_logs"
   s3_bucket_name = aws_s3_bucket.this.bucket
+
+  force_destroy = true
 }
 
 module "ec2_instance" {
