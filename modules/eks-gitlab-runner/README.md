@@ -130,5 +130,5 @@ module "gitlab_runner" {
 | <a name="input_runner_version"></a> [runner\_version](#input\_runner\_version) | Gitlab Runner Helm Chart version | `string` | `"0.41.0"` | no |
 | <a name="input_s3_bucket_name"></a> [s3\_bucket\_name](#input\_s3\_bucket\_name) | S3 Bucket Name | `string` | n/a | yes |
 | <a name="input_s3_bucket_region"></a> [s3\_bucket\_region](#input\_s3\_bucket\_region) | S3 Bucket Region | `string` | `"us-east-1"` | no |
-| <a name="input_tags"></a> [tags](#input\_tags) | n/a | `map` | <pre>{<br>  "ManagedBy": "Terraform"<br>}</pre> | no |
+| <a name="input_tags"></a> [tags](#input\_tags) | n/a | `map` | <pre>{<br/>  "ManagedBy": "Terraform"<br/>}</pre> | no |
 <!-- END_TF_DOCS -->
