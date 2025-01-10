@@ -36,11 +36,17 @@ module "vpc" {
   public_subnet_ipv6_prefixes  = [0, 1]
   private_subnet_ipv6_prefixes = [2, 3]
 
-  enable_nat_gateway = true
-  single_nat_gateway = true
+  enable_nat_gateway = var.enable_nat_gateway
+  single_nat_gateway = var.single_nat_gateway
 
   enable_dns_hostnames = true
   enable_dns_support   = true
+
+  enable_flow_log                                 = var.enable_flow_log
+  flow_log_file_format                            = var.flow_log_file_format
+  flow_log_destination_arn                        = var.flow_log_destination_arn
+  flow_log_destination_type                       = var.flow_log_destination_type
+  flow_log_cloudwatch_log_group_retention_in_days = var.flow_log_cloudwatch_log_group_retention_in_days
 
   tags = local.tags
 
