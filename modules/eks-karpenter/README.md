@@ -84,5 +84,5 @@ provider "kubectl" {
 | <a name="input_karpenter_controller_iam_role_arn"></a> [karpenter\_controller\_iam\_role\_arn](#input\_karpenter\_controller\_iam\_role\_arn) | Karpenter Controller Node IAM Role Arn | `any` | n/a | yes |
 | <a name="input_karpenter_node_instance_role"></a> [karpenter\_node\_instance\_role](#input\_karpenter\_node\_instance\_role) | Karpenter Instance Role Arn | `any` | n/a | yes |
 | <a name="input_name"></a> [name](#input\_name) | n/a | `string` | `"aws-demo"` | no |
-| <a name="input_tags"></a> [tags](#input\_tags) | n/a | `map` | <pre>{<br>  "ManagedBy": "Terraform"<br>}</pre> | no |
+| <a name="input_tags"></a> [tags](#input\_tags) | n/a | `map` | <pre>{<br/>  "ManagedBy": "Terraform"<br/>}</pre> | no |
 <!-- END_TF_DOCS -->
