@@ -31,7 +31,7 @@ Deploy simple EC2 Autoscalegroup to AWS.
 | <a name="input_min_size"></a> [min\_size](#input\_min\_size) | Minium amount EC2 Instances | `number` | `1` | no |
 | <a name="input_name"></a> [name](#input\_name) | n/a | `string` | `"aws-demo"` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | `"us-east-1"` | no |
-| <a name="input_tags"></a> [tags](#input\_tags) | n/a | `map` | <pre>{<br>  "ManagedBy": "Terraform"<br>}</pre> | no |
+| <a name="input_tags"></a> [tags](#input\_tags) | n/a | `map` | <pre>{<br/>  "ManagedBy": "Terraform"<br/>}</pre> | no |
 | <a name="input_volume_size"></a> [volume\_size](#input\_volume\_size) | Disk size of EC2 Instances | `number` | `20` | no |
 | <a name="input_vpc_cidr_block"></a> [vpc\_cidr\_block](#input\_vpc\_cidr\_block) | VPC CIDR Block | `string` | `"10.0.0.0/8"` | no |
 | <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | VPC ID | `string` | n/a | yes |
