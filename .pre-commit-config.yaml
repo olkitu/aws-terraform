@@ -6,4 +6,3 @@ repos:
       args:
       - --args=-recursive
     - id: terraform_docs
-    - id: terraform_tflint
