@@ -7,6 +7,14 @@
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
 
+## Modules
+
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_eventbridge_daily_partitioner"></a> [eventbridge\_daily\_partitioner](#module\_eventbridge\_daily\_partitioner) | terraform-aws-modules/eventbridge/aws | 3.14.2 |
+| <a name="module_lambda_daily_partitioner"></a> [lambda\_daily\_partitioner](#module\_lambda\_daily\_partitioner) | terraform-aws-modules/lambda/aws | 7.20.0 |
+| <a name="module_lambda_initial_partitioner"></a> [lambda\_initial\_partitioner](#module\_lambda\_initial\_partitioner) | terraform-aws-modules/lambda/aws | 7.20.0 |
+
 ## Resources
 
 | Name | Type |
