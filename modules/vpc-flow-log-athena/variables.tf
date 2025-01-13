@@ -9,6 +9,7 @@ locals {
   year              = formatdate("YYYY", local.current_timestamp)
   month             = formatdate("MM", local.current_timestamp)
   day               = formatdate("DD", local.current_timestamp)
+  timedate          = formatdate("DD-MMM-YYYYZhh:mm", local.current_timestamp)
 
   ordered_partition_keys = [
     { key = "year", value = "string" },

@@ -102,3 +102,77 @@ ORDER BY "start" ASC
 limit 50
 EOT
 }
+
+module "lambda_initial_partitioner" {
+  source  = "terraform-aws-modules/lambda/aws"
+  version = "7.20.0"
+
+  function_name = "${local.name}-initial_partitioner"
+  description   = "Create initial partition for Athena table"
+  handler       = "initial_partitioner.handler"
+  runtime       = "nodejs20.x"
+
+  timeout = 60
+
+  source_path = "${path.module}/./src"
+
+  tags = local.tags
+}
+
+module "lambda_daily_partitioner" {
+  source  = "terraform-aws-modules/lambda/aws"
+  version = "7.20.0"
+
+  function_name = "${local.name}-daily_partitioner"
+  description   = "Create daily partition for Athena table"
+  handler       = "daily_partitioner.handler"
+  runtime       = "nodejs20.x"
+
+  timeout = 30
+
+  source_path = "${path.module}/./src"
+
+  create_current_version_allowed_triggers = false
+  allowed_triggers = {
+    eventbridge = {
+      service    = "events"
+      source_arn = module.eventbridge_daily_partitioner.eventbridge_rule_arns["crons"]
+    }
+  }
+
+  tags = local.tags
+}
+
+module "eventbridge_daily_partitioner" {
+  source  = "terraform-aws-modules/eventbridge/aws"
+  version = "3.14.2"
+
+  create_bus = false
+
+  rules = {
+    crons = {
+      description         = "Invoke Lambda daily partitioner to create daily partition"
+      schedule_expression = "cron(0 0 * * ? *)"
+    }
+  }
+
+  targets = {
+    crons = [
+      {
+        name = "lambda_daily_partitioner"
+        arn  = module.lambda_daily_partitioner.lambda_function_arn
+        input = jsonencode({
+          db         = aws_glue_catalog_database.vpc_flow_logs.name
+          hive       = false
+          account_id = data.aws_caller_identity.current.account_id
+          service    = "vpcflowlogs"
+          region     = data.aws_region.current.name
+          athena = [{
+            partitionTableName = aws_glue_catalog_table.vpc_flow_logs.name,
+            frequency          = "daily"
+          }]
+        })
+      }
+    ]
+  }
+}
