@@ -62,13 +62,26 @@ resource "aws_glue_catalog_table" "vpc_flow_logs" {
   }
 }
 
+resource "aws_athena_named_query" "create_daily_partition" {
+  name        = "CreateDailyPartition"
+  description = "Create daily partition for VPC Flow Logs"
+  workgroup   = aws_athena_workgroup.vpc_flow_logs.id
+  database    = aws_glue_catalog_database.vpc_flow_logs.id
+  query       = <<EOT
+ALTER TABLE ${aws_glue_catalog_table.vpc_flow_logs.name}
+ADD IF NOT EXISTS PARTITION (year='${local.year}', month='${local.month}', day='${local.day}')
+LOCATION 's3://${var.s3_bucket_name}/AWSLogs/${data.aws_caller_identity.current.account_id}/vpcflowlogs/${data.aws_region.current.name}/${local.year}/${local.month}/${local.day}/';
+EOT
+}
+
+
 resource "aws_athena_named_query" "VpcFlowLogsTotalBytesTransferred" {
   name        = "VpcFlowLogsTotalBytesTransferred"
   description = "Top 50 pairs of source and destination IP addresses with the most bytes transferred."
   workgroup   = aws_athena_workgroup.vpc_flow_logs.id
   database    = aws_glue_catalog_database.vpc_flow_logs.id
   query       = <<EOT
-  SELECT SUM(bytes) as totalbytes, srcaddr, dstaddr from vpc_flow_logs
+  SELECT SUM(bytes) as totalbytes, srcaddr, dstaddr from ${aws_glue_catalog_table.vpc_flow_logs.name}
   GROUP BY srcaddr, dstaddr
   ORDER BY totalbytes
   LIMIT 50
@@ -82,7 +95,7 @@ resource "aws_athena_named_query" "VpcFlowLogsSshRdpTraffic" {
   database    = aws_glue_catalog_database.vpc_flow_logs.id
   query       = <<EOT
 SELECT *
-FROM vpc_flow_logs
+FROM ${aws_glue_catalog_table.vpc_flow_logs.name}
 WHERE srcport in (22,3389) OR dstport IN (22, 3389)
 ORDER BY "start" ASC
 limit 50

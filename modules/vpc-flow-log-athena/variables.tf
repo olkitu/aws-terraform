@@ -5,9 +5,15 @@ locals {
   tags = var.tags
 
 
+  current_timestamp = timestamp()
+  year              = formatdate("YYYY", local.current_timestamp)
+  month             = formatdate("MM", local.current_timestamp)
+  day               = formatdate("DD", local.current_timestamp)
+
   ordered_partition_keys = [
     { key = "year", value = "string" },
     { key = "month", value = "string" },
+    { key = "day", value = "string" }
   ]
 
   ordered_table_columns = [
@@ -55,7 +61,7 @@ variable "s3_bucket_name" {
 }
 
 variable "force_destroy" {
-  type = bool
+  type        = bool
   description = "Force destroy? default: false"
-  default = false
+  default     = false
 }
