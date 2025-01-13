@@ -1,4 +1,5 @@
 data "aws_caller_identity" "current" {}
+data "aws_region" "current" {}
 
 resource "aws_athena_workgroup" "vpc_flow_logs" {
   name = var.workgroup_name
