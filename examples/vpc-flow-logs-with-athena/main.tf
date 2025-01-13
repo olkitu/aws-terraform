@@ -62,6 +62,8 @@ module "vpc" {
   enable_flow_log           = true
   flow_log_destination_arn  = aws_s3_bucket.this.arn
   flow_log_destination_type = "s3"
+
+  enable_nat_gateway = false
 }
 
 module "athena" {
