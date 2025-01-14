@@ -33,6 +33,22 @@ locals {
     { key = "action", value = "string" },
     { key = "log_status", value = "string" },
   ]
+
+  lambda_policy_json = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect = "Allow",
+        Action = [
+          "glue:GetTable",
+          "glue:CreatePartition",
+          "glue:UpdatePartition",
+          "glue:GetPartition"
+        ]
+        Resource = aws_glue_catalog_table.vpc_flow_logs.arn
+      }
+    ]
+  })
 }
 
 variable "name" {

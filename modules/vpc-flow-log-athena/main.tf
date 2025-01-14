@@ -116,6 +116,9 @@ module "lambda_initial_partitioner" {
 
   source_path = "${path.module}/./src"
 
+  attach_policy_json = true
+  policy_json        = local.lambda_policy_json
+
   tags = local.tags
 }
 
@@ -139,6 +142,9 @@ module "lambda_daily_partitioner" {
       source_arn = module.eventbridge_daily_partitioner.eventbridge_rule_arns["crons"]
     }
   }
+
+  attach_policy_json = true
+  policy_json        = local.lambda_policy_json
 
   tags = local.tags
 }
