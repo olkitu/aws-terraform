@@ -1,15 +1,15 @@
 locals {
-  name   = var.name
-  region = var.region
+  name = var.name
 
   tags = var.tags
-
 
   current_timestamp = timestamp()
   year              = formatdate("YYYY", local.current_timestamp)
   month             = formatdate("MM", local.current_timestamp)
   day               = formatdate("DD", local.current_timestamp)
   timedate          = formatdate("DD-MMM-YYYYZhh:mm", local.current_timestamp)
+
+  partition_start_date = var.partition_start_date != "" ? var.partition_start_date : local.timedate
 
   ordered_partition_keys = [
     { key = "year", value = "string" },
@@ -45,23 +45,25 @@ locals {
           "glue:UpdatePartition",
           "glue:GetPartition"
         ]
-        Resource = aws_glue_catalog_table.vpc_flow_logs.arn
+        Resource = [
+          "arn:aws:glue:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:catalog/*",
+          "arn:aws:glue:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:database/${local.name}",
+          "arn:aws:glue:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:catalog",
+          "arn:aws:glue:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:table/${local.name}/${var.glue_catalog_table_name}"
+        ]
       }
     ]
   })
 }
 
 variable "name" {
-  type    = string
-  default = "aws-demo"
-}
-
-variable "region" {
-  type    = string
-  default = "us-east-1"
+  type        = string
+  description = "Name of project"
+  default     = "aws-demo"
 }
 
 variable "tags" {
+  type = map(string)
   default = {
     ManagedBy = "Terraform"
   }
@@ -70,6 +72,12 @@ variable "tags" {
 variable "workgroup_name" {
   type        = string
   description = "Athena workgroup name"
+}
+
+variable "glue_catalog_table_name" {
+  type        = string
+  description = "Glue Catalog Table name"
+  default     = "vpc_flow_logs"
 }
 
 variable "s3_bucket_name" {
@@ -81,4 +89,9 @@ variable "force_destroy" {
   type        = bool
   description = "Force destroy? default: false"
   default     = false
+}
+
+variable "partition_start_date" {
+  type    = string
+  default = ""
 }

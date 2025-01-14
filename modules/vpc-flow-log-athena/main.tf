@@ -15,6 +15,8 @@ resource "aws_athena_workgroup" "vpc_flow_logs" {
   }
 
   force_destroy = var.force_destroy
+
+  tags = local.tags
 }
 
 resource "aws_glue_catalog_database" "vpc_flow_logs" {
@@ -23,17 +25,17 @@ resource "aws_glue_catalog_database" "vpc_flow_logs" {
 }
 
 resource "aws_glue_catalog_table" "vpc_flow_logs" {
-  name          = "vpc_flow_logs"
+  name          = var.glue_catalog_table_name
   database_name = aws_glue_catalog_database.vpc_flow_logs.name
 
   table_type = "EXTERNAL_TABLE"
 
   parameters = {
-    "storage.location.template" = "s3://${var.s3_bucket_name}/AWSLogs/${data.aws_caller_identity.current.account_id}/vpcflowlogs/${local.region}/$${date}"
+    "storage.location.template" = "s3://${var.s3_bucket_name}/AWSLogs/${data.aws_caller_identity.current.account_id}/vpcflowlogs/${data.aws_region.current.name}/$${date}"
   }
 
   storage_descriptor {
-    location      = "s3://${var.s3_bucket_name}/AWSLogs/${data.aws_caller_identity.current.account_id}/vpcflowlogs/${local.region}/"
+    location      = "s3://${var.s3_bucket_name}/AWSLogs/${data.aws_caller_identity.current.account_id}/vpcflowlogs/${data.aws_region.current.name}/"
     input_format  = "org.apache.hadoop.mapred.TextInputFormat"
     output_format = "org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat"
 
@@ -63,29 +65,16 @@ resource "aws_glue_catalog_table" "vpc_flow_logs" {
   }
 }
 
-resource "aws_athena_named_query" "create_daily_partition" {
-  name        = "CreateDailyPartition"
-  description = "Create daily partition for VPC Flow Logs"
-  workgroup   = aws_athena_workgroup.vpc_flow_logs.id
-  database    = aws_glue_catalog_database.vpc_flow_logs.id
-  query       = <<EOT
-ALTER TABLE ${aws_glue_catalog_table.vpc_flow_logs.name}
-ADD IF NOT EXISTS PARTITION (year='${local.year}', month='${local.month}', day='${local.day}')
-LOCATION 's3://${var.s3_bucket_name}/AWSLogs/${data.aws_caller_identity.current.account_id}/vpcflowlogs/${data.aws_region.current.name}/${local.year}/${local.month}/${local.day}/';
-EOT
-}
-
-
 resource "aws_athena_named_query" "VpcFlowLogsTotalBytesTransferred" {
   name        = "VpcFlowLogsTotalBytesTransferred"
   description = "Top 50 pairs of source and destination IP addresses with the most bytes transferred."
   workgroup   = aws_athena_workgroup.vpc_flow_logs.id
   database    = aws_glue_catalog_database.vpc_flow_logs.id
   query       = <<EOT
-  SELECT SUM(bytes) as totalbytes, srcaddr, dstaddr from ${aws_glue_catalog_table.vpc_flow_logs.name}
-  GROUP BY srcaddr, dstaddr
-  ORDER BY totalbytes
-  LIMIT 50
+SELECT SUM(bytes) as totalbytes, srcaddr, dstaddr from ${aws_glue_catalog_table.vpc_flow_logs.name}
+GROUP BY srcaddr, dstaddr
+ORDER BY totalbytes
+LIMIT 50
 EOT
 }
 
@@ -100,6 +89,43 @@ FROM ${aws_glue_catalog_table.vpc_flow_logs.name}
 WHERE srcport in (22,3389) OR dstport IN (22, 3389)
 ORDER BY "start" ASC
 limit 50
+EOT
+}
+
+resource "aws_athena_named_query" "VpcFlowLogsTopRejects" {
+  name        = "VpcFlowLogsTopRejects"
+  description = "Recorded traffic which was not permitted by the security groups or network ACLs."
+  workgroup   = aws_athena_workgroup.vpc_flow_logs.id
+  database    = aws_glue_catalog_database.vpc_flow_logs.id
+  query       = <<EOT
+SELECT srcaddr, dstaddr,  count(*) count, "action"
+FROM ${aws_glue_catalog_table.vpc_flow_logs.name}
+WHERE "action" = 'REJECT'
+GROUP BY srcaddr, dstaddr, "action"
+ORDER BY count desc
+LIMIT 25
+EOT
+}
+
+resource "aws_athena_named_query" "VpcFlowLogsAdminPortTraffic" {
+  name        = "VpcFlowLogsAdminPortTraffic"
+  description = "Monitor the traffic on administrative web app ports"
+  workgroup   = aws_athena_workgroup.vpc_flow_logs.id
+  database    = aws_glue_catalog_database.vpc_flow_logs.id
+  query       = <<EOT
+SELECT ip, sum(bytes) as total_bytes
+FROM (
+  SELECT dstaddr as ip,sum(bytes) as bytes
+  FROM ${aws_glue_catalog_table.vpc_flow_logs.name}
+  GROUP BY 1
+  UNION ALL
+  SELECT srcaddr as ip,sum(bytes) as bytes
+  FROM ${aws_glue_catalog_table.vpc_flow_logs.name}
+  GROUP BY 1
+)
+GROUP BY ip
+ORDER BY total_bytes
+DESC LIMIT 10
 EOT
 }
 
@@ -120,6 +146,25 @@ module "lambda_initial_partitioner" {
   policy_json        = local.lambda_policy_json
 
   tags = local.tags
+}
+
+resource "aws_lambda_invocation" "initial_partitioner" {
+  function_name = module.lambda_initial_partitioner.lambda_function_name
+
+  input = jsonencode({
+    dbName     = local.name
+    hive       = false
+    account_id = data.aws_caller_identity.current.account_id
+    service    = "vpcflowlogs"
+    region     = data.aws_region.current.name
+    athenaIntegrations = [{
+      partitionTableName     = aws_glue_catalog_table.vpc_flow_logs.name,
+      partitionLoadFrequency = "daily"
+      partitionStartDate     = local.partition_start_date,
+      partitionEndDate       = local.timedate
+    }]
+  })
+
 }
 
 module "lambda_daily_partitioner" {
@@ -181,4 +226,6 @@ module "eventbridge_daily_partitioner" {
       }
     ]
   }
+
+  tags = local.tags
 }
